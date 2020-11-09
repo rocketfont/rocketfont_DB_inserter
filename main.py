@@ -37,7 +37,7 @@ input_fontStyle = font_face_json["font-style"]
 # font_srl 추출
 sql = "SELECT font_srl from font where font_file_name = %s"
 cursor.execute(sql, (input_fontFileName))
-Font_srl = cursor.fetchall()[0]['font_srl']
+font_srl = cursor.fetchall()[0]['font_srl']
 
 # 폰트 중복여부 판별
 sql = "select EXISTS (select * from font where font_file_name=%s) as success;"
@@ -48,16 +48,12 @@ isExist = cursor.fetchall()[0]['success']
 if isExist == 0:
      print(input_fontStyle)
      created = today
-     # sql = "INSERT INTO font (font_srl, font_file_name, font_family_name, font_style, font_weight, font_license_srl, font_copyright_srl, font_creator_srl, created, modified) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-     # cursor.execute(sql, (cursor.lastrowid, input_fontFileName, input_fontFamilyName, input_fontStyle, input_fontWeight, 1, 1, 1, Created, Modified))
+     #sql = "INSERT INTO font (font_file_name, font_family_name, font_style, font_weight, font_license_srl, font_copyright_srl, font_creator_srl, created, modified) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+     #cursor.execute(sql, (input_fontFileName, input_fontFamilyName, input_fontStyle, input_fontWeight, 1, 1, 1, created, modified))
 
-     for Unicode in unicode_list:
-          Font_unicode_srl = cursor.lastrowid + 1
-
-
-     sql = "INSERT INTO font_unicode (font_srl, ,font_unicode_srl, unicode, created, modified) VALUES (%s, %s, %s, %s, %s)"
-     cursor.execute(sql, (Font_srl, Font_unicode_srl, Unicode, created, modified))
-
+     for unicode in unicode_list:
+          sql = "INSERT INTO font_unicode (font_srl, unicode, created, modified) VALUES (%s, %s, %s, %s)"
+          cursor.execute(sql, (font_srl, unicode, created, modified))
 
      print("1 record inserted, ID: ", cursor.lastrowid)
 
