@@ -4,7 +4,7 @@ from datetime import datetime
 import re
 
 # db연결
-db = pymysql.connect(host='main-server.rocketfont.net', port=3306, user='super', passwd='Rocket@Font1', db='rocket_font_main_db', charset='utf8', autocommit=True, cursorclass=pymysql.cursors.DictCursor, ssl={"fake_flag_to_enable_tls":True})
+db = pymysql.connect(#################)
 cursor = db.cursor()
 
 # 입력 데이터 정의
